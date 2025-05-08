@@ -36,6 +36,17 @@
 		component: './RandomUser',
 		icon: 'ArrowsAltOutlined',
 	},
+	{
+		path: '/Tourism',
+		name: 'Tourism',
+		component: '@/pages/Tourism/Home',
+	},
+	{
+		path: '/admin',
+		name: 'admin',
+		component: '@/pages/Travel/Admin',
+	},
+
 
 	// DANH MUC HE THONG
 	// {
