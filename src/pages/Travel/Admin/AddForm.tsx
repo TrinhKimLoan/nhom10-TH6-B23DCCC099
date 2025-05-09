@@ -1,21 +1,38 @@
 // pages/Admin/DiemDen/components/AddForm.tsx
 import { Modal, Form, Input, InputNumber, Upload, Select, Rate, Button, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { RcFile } from 'antd/lib/upload';
 import LocationSearchInput from './LocationSearchInput';
-import { DestinationLocation } from '@/services/Travel/Admin/typings';
+import { DestinationLocation, Destination } from '@/services/Travel/Admin/typings';
 
 interface AddFormProps {
   visible: boolean;
   onCancel: () => void;
-  onSubmit: (values: any) => void;
+  onSubmit: (values: Destination) => void;
+  initialValues?: Destination; // Dữ liệu ban đầu khi sửa
+  isEdit?: boolean; // Trạng thái form
 }
 
-export default function AddForm({ visible, onCancel, onSubmit }: AddFormProps) {
+export default function AddForm({ visible, 
+  onCancel, 
+  onSubmit, 
+  initialValues, 
+  isEdit }: AddFormProps) {
   const [form] = Form.useForm();
   const [imageUrl, setImageUrl] = useState<string>('');
   const [location, setLocation] = useState<DestinationLocation | null>(null);
+
+  useEffect(() => {
+    if (initialValues) {
+      form.setFieldsValue({
+        ...initialValues,
+        rating: Number(initialValues.rating),
+      });
+      setImageUrl(initialValues.imageUrl);
+      setLocation(initialValues.location);
+    }
+  }, [initialValues]);
 
   const handleImageUpload = (file: RcFile) => {
     const reader = new FileReader();
@@ -28,6 +45,20 @@ export default function AddForm({ visible, onCancel, onSubmit }: AddFormProps) {
     return false; // prevent default upload
   };
 
+  // const handleFinish = (values: any) => {
+  //   if (!imageUrl || !location) {
+  //     message.error('Vui lòng chọn ảnh và địa điểm!');
+  //     return;
+  //   }
+  //   onSubmit({
+  //     ...values,
+  //     imageUrl,
+  //     location,
+  //   });
+  //   form.resetFields();
+  //   setImageUrl('');
+  //   setLocation(null);
+  // };
   const handleFinish = (values: any) => {
     if (!imageUrl || !location) {
       message.error('Vui lòng chọn ảnh và địa điểm!');
@@ -45,11 +76,11 @@ export default function AddForm({ visible, onCancel, onSubmit }: AddFormProps) {
 
   return (
     <Modal
-      title="Thêm điểm đến"
+      title={isEdit ? "Chỉnh sửa điểm đến" : "Thêm điểm đến"}
       visible={visible}
       onCancel={onCancel}
       onOk={() => form.submit()}
-      okText="Lưu"
+      okText={isEdit ? "Cập nhật" : "Lưu"}
       destroyOnClose
     >
       <Form layout="vertical" form={form} onFinish={handleFinish}>

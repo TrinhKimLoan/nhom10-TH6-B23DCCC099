@@ -2,7 +2,7 @@
 
 import { Destination } from './typings';
 
-const STORAGE_KEY = 'diem_den';
+const STORAGE_KEY = 'destinations';
 
 export const getAllDestinations = (): Destination[] => {
   const data = localStorage.getItem(STORAGE_KEY);

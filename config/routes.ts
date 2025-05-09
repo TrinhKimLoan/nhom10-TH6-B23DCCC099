@@ -37,14 +37,21 @@
 		icon: 'ArrowsAltOutlined',
 	},
 	{
-		path: '/Tourism',
-		name: 'Tourism',
-		component: '@/pages/Tourism/Home',
-	},
-	{
-		path: '/admin',
-		name: 'admin',
-		component: '@/pages/Travel/Admin',
+		name: 'Travel',
+		path: '/travel',
+		icon: 'copy',
+		routes: [
+			{
+				name: 'Admin',
+				path: 'admin',
+				component: '@/pages/Travel/Admin',
+			},
+			{
+				name: 'Homepage',
+				path: 'home',
+				component: '@/pages/Travel/Home',
+			},
+		],
 	},
 
 
