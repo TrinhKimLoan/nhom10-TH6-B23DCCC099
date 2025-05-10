@@ -51,6 +51,11 @@
 				path: 'home',
 				component: '@/pages/Travel/Home',
 			},
+			{
+				name: 'Schedule',
+				path: 'schedule',
+				component: '@/pages/Travel/Schedule',
+			},
 		],
 	},
 
