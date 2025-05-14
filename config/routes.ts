@@ -56,6 +56,11 @@
 				path: 'schedule',
 				component: '@/pages/Travel/Schedule',
 			},
+			{
+				name: 'Budget',
+				path: 'budget',
+				component: '@/pages/Travel/Budget',
+			},
 		],
 	},
 
